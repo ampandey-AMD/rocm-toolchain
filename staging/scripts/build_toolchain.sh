@@ -1,6 +1,6 @@
 
 (./build_roct.sh)
-(./build_llvm.sh)
+(./build_llvm.sh asan)
 (./build_devicelib.sh)
 (./build_rocr.sh)
 
@@ -16,11 +16,11 @@
 (./build_opencl.sh)
 
 ## Build OpenMP runtime
-(./build_openmp.sh)
+(./build_openmp.sh asan)
 
 ## Build ROCclr runtime
 #(./build_vdi.sh asan)
 
 ## Build HIP runtime
-(./build_hipamd.sh)
+(./build_hipamd.sh asan)
 
