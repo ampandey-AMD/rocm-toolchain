@@ -1,4 +1,4 @@
-export WORK_HOME=/home/ampandey/rocm-toolchain
+export WORK_HOME=/home/ampandey/asan-toolchain
 source ${WORK_HOME}/staging/scripts/export_common_vars.sh
 
 function enable_omp_debug(){
@@ -79,5 +79,5 @@ export LIBRARY_PATH="$ROCM_PATH/amdgcn/bitcode:$ROCM_PATH/llvm/lib:$ROCM_PATH/li
 CLANG_VERSION=$(clang --version | grep -om 1  "[0-9]\+\.[0-9]\.[0-9]")
 export ASAN_TEST_ROCM=$ROCM_PATH
 export ASAN_OPTIONS="help=0:verbosity=0:symbolize=1:detect_leaks=0" #;allocator_may_return_null=1
-ASAN_RT_PATH="$ROCM_PATH/lib/clang/$CLANG_VERSION/lib/linux"
+ASAN_RT_PATH="$ROCM_PATH/llvm/lib/clang/$CLANG_VERSION/lib/linux"
 #export LD_PRELOAD=$ASAN_RT_PATH/libclang_rt.asan-x86_64.so
