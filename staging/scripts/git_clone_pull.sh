@@ -23,7 +23,7 @@ clone_list['roctracer']="ssh://$USERNAME@gerrit-git.amd.com:29418/compute/ec/roc
 clone_list['rocprofiler']="ssh://$USERNAME@gerrit-git.amd.com:29418/compute/ec/rocprofiler"
 clone_list['aqlprofile']="ssh://$USERNAME@gerrit-git.amd.com:29418/hsa/ec/aqlprofile"
 ### Flang repo
-clone_list['flang']="https://github.com/ROCm-Developer-Tools/flang"
+clone_list['flang']="https://github.com/flang-compiler/flang.git"
 
 ### Math Libraries
 clone_list['rocblas']="ssh://$USERNAME@gerrit-git.amd.com:29418/compute/ec/rocblas"

@@ -17,7 +17,7 @@ cmake -G "Unix Makefiles" \
 	-DCMAKE_INCLUDE_PATH=${ROCM_PATH}/include \
 	-DCMAKE_LIBRARY_PATH=${ROCM_PATH}/lib \
 	-DCMAKE_INSTALL_PREFIX=${INSTALL_HOME} \
-	-DCMAKE_BUILD_TYPE="Debug" \
+	-DCMAKE_BUILD_TYPE="Release" \
 	$SOURCE_DIR
 
 make -j${JOB_THREADS}

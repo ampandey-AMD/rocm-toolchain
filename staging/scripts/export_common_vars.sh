@@ -11,6 +11,7 @@ export INSTALL_HOME=${WORK_DIR}/rocm
 ### SOURCE-CODE HOME
 ########################################################################################################
 export LLVM_HOME=${SRC_HOME}/llvm-project
+export COMPILERRT_HOME=${SRC_HOME}/llvm-project/compiler-rt
 export DLIB_HOME=${SRC_HOME}/device-libs
 export ROCR_HOME=${SRC_HOME}/rocr
 export ROCT_HOME=${SRC_HOME}/roct
@@ -41,6 +42,7 @@ export PGMATH_HOME=${SRC_HOME}/flang/runtime/libpgmath
 #########################################################################################################
 ## Compiler Main Components
 export LLVM_BUILD=${BUILD_HOME}/llvm
+export COMPILERRT_BUILD=${BUILD_HOME}/compiler-rt
 export DLIB_BUILD=${BUILD_HOME}/dlibs
 export ROCR_BUILD=${BUILD_HOME}/rocr
 export ROCT_BUILD=${BUILD_HOME}/roct
