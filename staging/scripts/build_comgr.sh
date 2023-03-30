@@ -16,7 +16,7 @@ cmake -G "Unix Makefiles" \
 			-DCMAKE_C_FLAGS="-I/opt/rocm/include" \
 			-DCMAKE_CXX_FLAGS="-I/opt/rocm/include" \
 			-DCMAKE_BUILD_TYPE="Debug" \
-			-DCMAKE_PREFIX_PATH="$LLVM_BUILD;$DLIB_BUILD" \
+			-DCMAKE_PREFIX_PATH="$LLVM_BUILD;$DLIB_BUILD;/opt/rocm" \
 			-DCMAKE_INSTALL_PREFIX="$INSTALL_HOME" \
 			-DBUILD_SHARED_LIBS="ON" \
 			-DBUILD_TESTING="OFF" \

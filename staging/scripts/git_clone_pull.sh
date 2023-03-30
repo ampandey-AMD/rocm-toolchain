@@ -23,7 +23,7 @@ clone_list['roctracer']="ssh://$USERNAME@gerrit-git.amd.com:29418/compute/ec/roc
 clone_list['rocprofiler']="ssh://$USERNAME@gerrit-git.amd.com:29418/compute/ec/rocprofiler"
 clone_list['aqlprofile']="ssh://$USERNAME@gerrit-git.amd.com:29418/hsa/ec/aqlprofile"
 ### Flang repo
-clone_list['flang']="https://github.com/flang-compiler/flang.git"
+clone_list['flang']="https://github.com/ROCm-Developer-Tools/flang"
 
 ### Math Libraries
 clone_list['rocblas']="ssh://$USERNAME@gerrit-git.amd.com:29418/compute/ec/rocblas"
@@ -33,7 +33,7 @@ dir_list['device-libs']="amd-stg-open"
 dir_list['comgr']="amd-stg-open"
 dir_list['opencl']="amd-staging"
 dir_list['hip']="amd-staging"
-dir_list['hipamd']="main"
+dir_list['hipamd']="amd-staging"
 dir_list['vdi']="amd-staging"
 dir_list['rocr']="amd-staging"
 dir_list['roct']="amd-staging"
@@ -44,7 +44,7 @@ dir_list['rocr-debug-agent']="amd-master"
 dir_list['roctracer']="amd-staging"
 dir_list['rocprofiler']="amd-staging"
 dir_list['aqlprofile']="amd-staging"
-dir_list['flang']="master"
+dir_list['flang']="aomp-dev"
 dir_list['rocblas']="amd-master"
 
 function check_Clone_OR_Pull(){

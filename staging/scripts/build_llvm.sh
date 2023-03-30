@@ -1,4 +1,4 @@
-echo -e "____________________________ Building LLVM Compiler with compiler-rt runtime  ___________________________________"
+echo -e "____________________________ Building LLVM Compiler without compiler-rt  ___________________________________"
 echo -e ""
 
 SOURCE_DIR=${LLVM_HOME}/llvm
@@ -10,31 +10,39 @@ fi
 mkdir -p ${LLVM_BUILD}
 cd ${LLVM_BUILD}
 
-CMAKE_OPTIONS="-DLLVM_BUILD_TOOLS=ON \
-	-DCMAKE_C_COMPILER=clang \
-	-DCMAKE_CXX_COMPILER=clang++ \
-	-DCMAKE_BUILD_TYPE=Debug \
-	-DLLVM_ENABLE_ASSERTIONS=ON \
-	-DLLVM_ENABLE_PROJECTS=clang;clang-tools-extra;lld \
-	-DLLVM_ENABLE_RUNTIMES=compiler-rt \
-	-DLLVM_ENABLE_RTTI=ON \
-	-DLLVM_PARALLEL_COMPILE_JOBS=$(nproc) \
-	-DLLVM_PARALLEL_LINK_JOBS=32 \
-	-DLLVM_INSTALL_UTILS=ON \
-	-DLLVM_TARGETS_TO_BUILD=X86;AMDGPU \
-	-DLLVM_ENABLE_LLD=ON \
-	-DCMAKE_PREFIX_PATH=${ROCM_PATH} \
-	-DCMAKE_INSTALL_PREFIX=${INSTALL_HOME}/llvm"
+#COMPILE_FLAGS="-O0"
 
+set -x
+cmake -G "Unix Makefiles" \
+	-DLLVM_BUILD_TOOLS="ON" \
+	-DCMAKE_C_COMPILER="gcc" \
+	-DCMAKE_CXX_COMPILER="g++" \
+	-DCMAKE_BUILD_TYPE="Release"\
+	-DLLVM_ENABLE_ASSERTIONS="ON" \
+	-DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;lld" \
+	-DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi;compiler-rt" \
+	-DLLVM_ENABLE_RTTI="ON" \
+	-DLLVM_PARALLEL_COMPILE_JOBS="$(nproc)" \
+	-DLLVM_PARALLEL_LINK_JOBS="32" \
+	-DLLVM_INSTALL_UTILS="ON" \
+	-DLLVM_TARGETS_TO_BUILD="X86;AMDGPU" \
+	-DCMAKE_INSTALL_PREFIX="${INSTALL_HOME}/llvm" \
+	${SOURCE_DIR} \
+	-DSANITIZER_AMDGPU="ON" \
+	-DSANITIZER_HSA_INCLUDE_PATH="${ROCR_HOME}/opensrc/hsa-runtime/inc" \
+	-DSANITIZER_COMGR_INCLUDE_PATH="${COMGR_HOME}/lib/comgr/include"
+	#-DLLVM_USE_LINKER="lld" \
+	#	-DCMAKE_PREFIX_PATH="${ROCM_PATH};/opt/rocm-5.5.0-99999" \
+#	-DCMAKE_C_FLAGS="$COMPILE_FLAGS" \
+#	-DCMAKE_CXX_FLAGS="$COMPILE_FLAGS" \
 
-if [ -n "$1" ] && [ "$1" == "asan" ]; then
-	CMAKE_OPTIONS+=" -DSANITIZER_AMDGPU=1"
-	CMAKE_OPTIONS+=" -DHSA_INCLUDE_PATH=${ROCR_HOME}/opensrc/hsa-runtime/inc"
-	CMAKE_OPTIONS+=" -DCOMGR_INCLUDE_PATH=${COMGR_HOME}/lib/comgr/include"
-fi
+cmake --build . -- -j${JOB_THREADS} clang lld compiler-rt
+cmake --build . -- -j${JOB_THREADS} runtimes cxx
+cmake --build . -- -j${JOB_THREADS} install
 
-(set -x; cmake -G "Unix Makefiles" ${CMAKE_OPTIONS} ${SOURCE_DIR}; make -j${JOB_THREADS}; make -j${JOB_THREADS} install)
-
-#(set -x; cmake -G "Unix Makefiles" ${CMAKE_OPTIONS} ${SOURCE_DIR}; make -j${JOB_THREADS}; make -j${JOB_THREADS} install; make -j${JOB_THREADS} check-clang check-llvm check-lld)
+#make -j${JOB_THREADS}
+#make -j${JOB_THREADS} install
+#make -j${JOB_THREADS} check-clang check-llvm check-lld
+set +x
 
 cd $WORK_DIR/scripts
